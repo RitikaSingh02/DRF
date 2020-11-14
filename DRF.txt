@@ -1,0 +1,34 @@
+::There are three stages before creating a API through REST framework:
+:::Converting a Model’s data to JSON/XML format (Serialization), 
+:::Rendering this data to the view, Creating 
+:::a URL for mapping to the viewset.
+::Serializers allow complex data such as querysets and model instances to be converted to native Python datatypes
+ that can then be easily rendered into JSON, XML or other content types. 
+Serializers also provide deserialization, allowing parsed data to be converted back into complex types, after first validating the incoming data.
+::@api_view:
+    :::a decorater used for function based views
+    :::used to make endpoints of that api(GET,POST,PUT,DELETE)
+::REST is acronym for REpresentational State Transfer.
+ It is architectural style for distributed hypermedia systems 
+::AN API will be called restful onle when:
+    :::https://restfulapi.net/rest-architectural-constraints/
+::REST API are stateless that is The server will not store anything about the latest HTTP request the client made. It will treat every request as new.
+   No session, no history.
+::In REST api only once the suthorization is done the request 
+    need not to send the authentication details at every REST API request
+::REST API LETS U DO CASHING
+
+    READ THIS:
+       1. https://www.tutorialspoint.com/django/django_caching.htm
+        2. https://www.django-rest-framework.org/api-guide/caching/
+::mixins:
+    https://sodocumentation.net/django-rest-framework/topic/10083/mixins
+::creating abstract user class:
+        :::https://medium.com/@apogiatzis/create-a-restful-api-with-users-and-jwt-authentication-using-django-1-11-drf-part-1-288268602bb7        
+        :::https://medium.com/@apogiatzis/create-a-restful-api-with-users-and-jwt-authentication-using-django-1-11-drf-part-2-eb6fdcf71f45
+::  {
+    "detail": "Authentication credentials were not provided."
+}
+https://stackoverflow.com/questions/26906630/django-rest-framework-authentication-credentials-were-not-provided
+::permissions:
+    http://www.tomchristie.com/rest-framework-2-docs/api-guide/permissions
