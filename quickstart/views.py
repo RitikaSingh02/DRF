@@ -9,6 +9,7 @@ from rest_framework.renderers import JSONRenderer
 from .models import Article 
 from django.views import View
 from rest_framework.authtoken.models import Token
+from rest_framework.authentication import SessionAuthentication
 # from django.views.generic import View
 from rest_framework.views import APIView
 from .serializers import ArticleModelSerialiser
@@ -32,6 +33,8 @@ class UserNewViewSet(viewsets.ModelViewSet):
     # print("y")
     queryset=User.objects.all()
     serializer_class=UserSerializer
+    # authentication_classes = (SessionAuthentication,)
+    # permission_classes=[permissions.IsAuthenticated]
     # print(permission_classes)
     
     def create(self,request):#crestinga valid using user using POST
@@ -52,6 +55,7 @@ class UserNewViewSet(viewsets.ModelViewSet):
                 user.set_password(data["password"])
                 token = Token.objects.create(user=user)
                 print(token.key)#fb7f6bd1d90940efb58152f08efd883b7cbd4826
+                #HTTP_AUTHORIZATION': 'Token f147069a2f2a9dc55e492362d239db35cb8ae008'
                 return JsonResponse({"user": UserSerializer(user, context=self.get_serializer_context()).data},safe=False)##(status code generated is 201)
             else:
                 return JsonResponse(serializer.errors,safe=False)
@@ -98,8 +102,24 @@ class UserNewViewSet(viewsets.ModelViewSet):
                 #         "password": "pbkdf2_sha256$150000$wwkRkUCLyTTW$c9PPC8sgnbKNeASrnmgokJf4jnAi+fieghH8OzFQHrQ="
                 #          }
                 # 
-        if data["type_request"]=="logout":
-            pass
+        if data["type_request"]=="session_authentication":
+            authentication_classes = (SessionAuthentication,)
+            # permission_classes = (IsAuthenticated,)
+            status=authenticate(username=data["username"],password=data["password"])
+            print(status)
+            user=User.objects.get(username=data["username"])
+            print(user)#shivansh.1923cs1076
+            if  user is not None:
+                response=login(request,user)#null
+                print(user.is_authenticated)#True
+                print(request.session)#<django.contrib.sessions.backends.db.SessionStore object at 0x7f0c082f5e80>
+                # print(request.META['HTTP_COOKIE'])#sessionid=ky8pp6z1p0m6znxtxq5efpllpe6wsnb0   (after successful login only this cookie is generated and for the same ssession that is until logout the sessionid remains the same )
+                permission_classes=[permissions.IsAuthenticated]
+                print(permission_classes)
+                return JsonResponse(response,safe=False)
+            else:
+                return JsonResponse("nope",safe=False)  
+                
 class GroupViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows groups to be viewed or edited.
@@ -216,3 +236,9 @@ class Create_login_logout_View(View):
             else:
                 return JsonResponse("nope",safe=False)
             
+#     {
+#         "username": "perfect.entry",
+#         "email": "adam@gmail.com",
+#         "password": "KIET123",
+#         "type_request":"login"
+# }
