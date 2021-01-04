@@ -27,7 +27,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
+# APPEND_TRAILING_SLASH = True
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'corsheaders',
     'quickstart',
+    'status',
     'rest_framework',
     'rest_framework.authtoken'
 ]
@@ -127,10 +128,10 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
     ),
-    'DEFAULT_PERMISSION_CLASSES': (
-   'rest_framework.permissions.IsAuthenticated',#to check the token authentication or each function
-   ##now to get into any function u need to provide a authorization token in headers
-   ##key:Authorization
-   ##value: "Token f147069a2f2a9dc55e492362d239db35cb8ae008"
-)
+    #     'DEFAULT_PERMISSION_CLASSES': (
+    #    'rest_framework.permissions.IsAuthenticated',#to check the token authentication or each function
+    #    ##now to get into any function u need to provide a authorization token in headers
+    #    ##key:Authorization
+    #    ##value: "Token f147069a2f2a9dc55e492362d239db35cb8ae008"
+    # )
 }
