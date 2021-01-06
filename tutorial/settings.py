@@ -29,7 +29,6 @@ ALLOWED_HOSTS = []
 
 # APPEND_TRAILING_SLASH = True
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -135,3 +134,9 @@ REST_FRAMEWORK = {
     #    ##value: "Token f147069a2f2a9dc55e492362d239db35cb8ae008"
     # )
 }
+
+
+MEDIA_ROOT = os.path.join(os.path.dirname(
+    os.path.dirname(os.path.abspath(__file__))), 'static-files', 'media-root')
+# print(MEDIA_ROOT)
+MEDIA_URL = '/media/'
