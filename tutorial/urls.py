@@ -5,7 +5,8 @@ from rest_framework import routers
 from quickstart import views
 from quickstart.views import ArticleViewSet
 from quickstart import urls
-
+from rest_framework_jwt.views import obtain_jwt_token
+from rest_framework_jwt.views import verify_jwt_token
 # REST framework adds support for automatic URL routing to Django(similar to rails),
 # and provides you with a simple,
 # quick and consistent way of wiring your view logic to a set of URLs.
@@ -46,4 +47,10 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('app/', include('quickstart.urls')),
     path('status/', include('status.urls')),
+
+    # JWT AUTH RESOURCE:::   https://jpadilla.github.io/django-rest-framework-jwt/
+    path('api/jwt-auth/', obtain_jwt_token),  # get the jwt token
+    path('api/jwt-verify/', verify_jwt_token),  # verify the jwt token
+    path('api/jwt-verify-custom/', include("status.urls")),
+
 ]
