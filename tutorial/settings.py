@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/2.2/ref/settings/
 """
 
 import os
-
+import datetime
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -126,6 +126,7 @@ REST_FRAMEWORK = {
 
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
     ),
     #     'DEFAULT_PERMISSION_CLASSES': (
     #    'rest_framework.permissions.IsAuthenticated',#to check the token authentication or each function
@@ -140,3 +141,37 @@ MEDIA_ROOT = os.path.join(os.path.dirname(
     os.path.dirname(os.path.abspath(__file__))), 'static-files', 'media-root')
 # print(MEDIA_ROOT)
 MEDIA_URL = '/media/'
+
+#######JWT################
+JWT_AUTH = {
+    'JWT_ENCODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_encode_handler',
+
+    'JWT_DECODE_HANDLER':
+    'rest_framework_jwt.utils.jwt_decode_handler',
+
+    'JWT_PAYLOAD_HANDLER':
+    'rest_framework_jwt.utils.jwt_payload_handler',
+
+    'JWT_PAYLOAD_GET_USER_ID_HANDLER':
+    'rest_framework_jwt.utils.jwt_get_user_id_from_payload_handler',
+
+    'JWT_RESPONSE_PAYLOAD_HANDLER':
+    # 'rest_framework_jwt.utils.jwt_response_payload_handler',
+    ###changing the default payload handler####
+    'status.JWT_MODIFICATIONS.jwt_custom_payload.jwt_response_payload_handler',
+
+
+    'JWT_ALLOW_REFRESH': False,
+    # sets the token to expire to 7 days
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=365),
+    'JWT_SECRET_KEY': SECRET_KEY,
+    # settings for the start of the autorization header
+    'JWT_AUTH_HEADER_PREFIX': 'JWT',
+    # Authorization : JWT <token>
+    'JWT_AUTH_COOKIE': "JwtToken",
+    # this sets the cookie name in the response headers starting with JwtToken
+    # so the cookie is set as
+    # JwtToken=<jwttoken>; expires=timestamp; HttpOnly; Max-Age=300; Path=/
+    # JwtToken=eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoxLCJ1c2VybmFtZSI6ImFkbWluIiwiZXhwIjoxNjA5OTMzOTIyLCJlbWFpbCI6InJpdGlrYUBnbWFpbC5jb20ifQ.LsllwUmHgg50MwMhvqQC42oM9E61-Tkca5Loi8M_3wk; expires=Wed, 06 Jan 2021 11:54:03 GMT; HttpOnly; Max-Age=300; Path=/
+}
