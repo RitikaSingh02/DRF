@@ -3,7 +3,7 @@ from django.db import models
 
 
 def status_image(user, file):
-    return "upload_status_image/{user}/{file}".format(user=user, file=file)
+    return settings.MEDIA_ROOT+"/{user}/{file}".format(user=user.user, file=file)
 
 
 class Status(models.Model):
@@ -13,7 +13,7 @@ class Status(models.Model):
     content = models.TextField(null=True, blank=True)
     image = models.ImageField(upload_to=status_image,
                               null=True,
-                              blank=True)
+                              blank=True, max_length=500)
     email = models.EmailField(null=True, unique=True)
     timestamp = models.DateTimeField(auto_now_add=True)
 
