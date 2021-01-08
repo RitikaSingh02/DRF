@@ -163,6 +163,8 @@ JWT_AUTH = {
 
 
     'JWT_ALLOW_REFRESH': False,
+    # if JWT_ALLOW_REFRESH is True, issued tokens can be “refreshed” to obtain a new brand token with renewed expiration time.
+
     # sets the token to expire to 7 days
     'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=365),
     'JWT_SECRET_KEY': SECRET_KEY,
