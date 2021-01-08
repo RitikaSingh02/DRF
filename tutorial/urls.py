@@ -49,8 +49,15 @@ urlpatterns = [
     path('status/', include('status.urls')),
 
     # JWT AUTH RESOURCE:::   https://jpadilla.github.io/django-rest-framework-jwt/
-    path('api/jwt-auth/', obtain_jwt_token),  # get the jwt token
-    path('api/jwt-verify/', verify_jwt_token),  # verify the jwt token
-    path('api/jwt-verify-custom/', include("status.urls")),
+    # path('api/jwt-auth/', obtain_jwt_token),  # get the jwt token
+    # to create authenticate and get the user jwt token
+    path('api/jwt-custom-auth/', include("status.urls")),
+    # use the token generated above sent in headers like :  Authorization : JWT <token>  and in body  {'token':<token>}
+    # wihthout heading with this url there wont be any cokkie set into frontend headers
+    path('api/jwt-verify/', verify_jwt_token),
+    # path('check/', include('status.urls')),
+
+
+
 
 ]
