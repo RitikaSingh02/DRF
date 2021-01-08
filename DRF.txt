@@ -32,3 +32,7 @@ Serializers also provide deserialization, allowing parsed data to be converted b
 https://stackoverflow.com/questions/26906630/django-rest-framework-authentication-credentials-were-not-provided
 ::permissions:
     http://www.tomchristie.com/rest-framework-2-docs/api-guide/permissions
+
+
+::DJANGO AUTH REALLYY GD ONE:
+    https://thinkster.io/tutorials/django-json-api/authentication
